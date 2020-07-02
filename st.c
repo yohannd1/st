@@ -1097,8 +1097,11 @@ kscrollup(const Arg* a)
 {
 	int n = a->i;
 
-	if (n < 0)
+	if (n == -1) /* full page */
 		n = term.row + n;
+
+	if (n == -2) /* half a page */
+		n = (term.row + n) / 2;
 
 	if (term.scr <= HISTSIZE-n) {
 		term.scr += n;
@@ -1685,8 +1688,8 @@ csihandle(void)
 	switch (csiescseq.mode[0]) {
 	default:
 	unknown:
-		fprintf(stderr, "erresc: unknown csi ");
-		csidump();
+		/* fprintf(stderr, "erresc: unknown csi "); */
+		/* csidump(); */
 		/* die(""); */
 		break;
 	case '@': /* ICH -- Insert <n> blank char */
@@ -1963,8 +1966,8 @@ strhandle(void)
 			if (xsetcolorname(j, p)) {
 				if (par == 104 && narg <= 1)
 					return; /* color reset without parameter */
-				fprintf(stderr, "erresc: invalid color j=%d, p=%s\n",
-					j, p ? p : "(null)");
+				/* fprintf(stderr, "erresc: invalid color j=%d, p=%s\n", */
+				/* 	j, p ? p : "(null)"); */
 			} else {
 				/*
 				 * TODO if defaultbg color is changed, borders
@@ -1987,8 +1990,8 @@ strhandle(void)
 		return;
 	}
 
-	fprintf(stderr, "erresc: unknown str ");
-	strdump();
+	/* fprintf(stderr, "erresc: unknown str "); */
+	/* strdump(); */
 }
 
 void
