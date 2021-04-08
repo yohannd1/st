@@ -12,4 +12,4 @@ urls="$(sed 's/.*│//g' | tr -d '\n' |
 
 chosen=$(echo "$urls" | dmenu -i -p 'Follow which url?' -l 10) || exit 1
 
-setsid xdg-open "$chosen" >/dev/null 2>&1 &
+setsid openfork "$chosen"
