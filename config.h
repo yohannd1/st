@@ -8,7 +8,7 @@
 static char *font = "mono:pixelsize=12:antialias=true:autohint=true";
 static char *font2[] = { "JoyPixels:pixelsize=10:antialias=true:autohint=true" };
 static int borderpx = 2;
-static int enableligatures = 0;
+static int enableligatures = 1;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -218,6 +218,7 @@ ResourcePref resources[] = {
 		{ "cwscale",      FLOAT,   &cwscale },
 		{ "chscale",      FLOAT,   &chscale },
 		{ "alpha",        FLOAT,   &alpha },
+		{ "enableligatures",    INTEGER, &enableligatures },
 };
 
 /*
