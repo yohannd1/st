@@ -10,10 +10,16 @@ urls="$(sed 's/.*│//g' | tr -d '\n' | # First remove linebreaks and mutt sideb
 
 [ -z "$urls" ] && exit 1
 
-while getopts "hoc" o; do case "${o}" in
-	h) printf "Optional arguments for custom use:\\n  -c: copy\\n  -o: xdg-open\\n  -h: Show this message\\n" && exit 1 ;;
-	o) chosen="$(echo "$urls" | dmenu -i -p 'Follow which url?' -l 10)"
-	setsid openfork "$chosen" ;;
-	c) echo "$urls" | dmenu -i -p 'Copy which url?' -l 10 | tr -d '\n' | xclip -selection clipboard ;;
-	*) printf "Invalid option: -%s\\n" "$OPTARG" && exit 1 ;;
+while getopts "hoc" o; do case "$o" in
+	h)
+    printf "Optional arguments for custom use:\\n  -c: copy\\n  -o: xdg-open\\n  -h: Show this message\\n" && exit 1
+    ;;
+	o)
+    chosen="$(echo "$urls" | fzagnostic -p 'Follow which url?' -h 10)" || exit 1
+    openfork "$chosen"
+    ;;
+	c)
+    echo "$urls" | fzagnostic -p 'Copy which url?' -h 10 | tr -d '\n' | xclip -selection clipboard
+    ;;
+	*) printf 'Invalid option: -%s\n' "$OPTARG" && exit 1 ;;
 esac done

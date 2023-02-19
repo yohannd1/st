@@ -7,7 +7,7 @@ include config.mk
 SRC = st.c x.c boxdraw.c hb.c
 OBJ = $(SRC:.c=.o)
 
-all: options st
+all: options submodules st
 
 options:
 	@echo st build options:
@@ -25,6 +25,10 @@ boxdraw.o: config.h st.h boxdraw_data.h
 
 $(OBJ): config.h config.mk
 
+submodules:
+	git submodule init
+	git submodule update
+
 st: $(OBJ)
 	$(CC) -o $@ $(OBJ) $(STLDFLAGS)
 
@@ -40,8 +44,6 @@ dist: clean
 	rm -rf st-$(VERSION)
 
 install: st
-	git submodule init
-	git submodule update
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	cp -f st $(DESTDIR)$(PREFIX)/bin
 	cp -f st-copyout $(DESTDIR)$(PREFIX)/bin
@@ -61,4 +63,4 @@ uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/st-urlhandler
 	rm -f $(DESTDIR)$(MANPREFIX)/man1/st.1
 
-.PHONY: all options clean dist install uninstall
+.PHONY: all options clean dist install uninstall submodules
