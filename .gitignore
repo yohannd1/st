@@ -1,5 +1,11 @@
-patches/
-.gitignore
-*.o
 st
+
 *.orig
+patches/
+
+# object files
+*.o
+
+# makepkg outputs
+pkg
+src
