@@ -9,3 +9,4 @@ patches/
 # makepkg outputs
 pkg
 src
+output
