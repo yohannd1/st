@@ -6,7 +6,7 @@ patches/
 # object files
 *.o
 
-# makepkg outputs
-pkg
-src
-output
+# build artifacts - makepkg
+pkg/
+src/
+dist/

@@ -6,6 +6,7 @@ include config.mk
 
 SRC = st.c x.c boxdraw.c hb.c
 OBJ = $(SRC:.c=.o)
+DIST_DIR := dist
 
 all: options submodules st
 
@@ -36,12 +37,12 @@ clean:
 	rm -f st $(OBJ) st-$(VERSION).tar.gz *.rej *.orig *.o
 
 dist: clean
-	mkdir -p st-$(VERSION)
-	cp -R FAQ LEGACY TODO LICENSE Makefile README config.mk\
+	mkdir -p $(DIST_DIR)/st-$(VERSION)
+	cp -R LICENSE Makefile README.md config.mk\
 		config.h st.info st.1 arg.h st.h win.h $(SRC)\
-		st-$(VERSION)
-	tar -cf - st-$(VERSION) | gzip > st-$(VERSION).tar.gz
-	rm -rf st-$(VERSION)
+		-t $(DIST_DIR)/st-$(VERSION)
+	tar -cf - $(DIST_DIR)/st-$(VERSION) | gzip > $(DIST_DIR)/st-$(VERSION).tar.gz
+	rm -rf $(DIST_DIR)/st-$(VERSION)
 
 install: st
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
@@ -64,6 +65,7 @@ uninstall:
 	rm -f $(DESTDIR)$(MANPREFIX)/man1/st.1
 
 archinstall:
-	PKGDEST=output/ makepkg -csi
+	if [ -d $(DIST_DIR) ]; then rm -r $(DIST_DIR); fi
+	PKGDEST=$(DIST_DIR) makepkg -csi
 
-.PHONY: all options clean dist install uninstall submodules
+.PHONY: all options clean dist install uninstall submodules archinstall
