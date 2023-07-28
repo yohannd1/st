@@ -2,7 +2,7 @@
 
 pkgname=st-yd
 _pkgname=st
-pkgver=0.8.5.r1404.fc74d5c
+pkgver=0.8.5.r1405.1227218
 pkgrel=1
 epoch=1
 pkgdesc="A fork of Luke Smith's fork of simple (suckless) terminal."
