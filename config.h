@@ -168,7 +168,7 @@ static unsigned int rows = 24;
 /*
  * Default colour and shape of the mouse cursor
  */
-static unsigned int mouseshape = XC_xterm;
+static unsigned int mouseshape = XC_arrow;
 static unsigned int mousefg = 7;
 static unsigned int mousebg = 0;
 
@@ -254,8 +254,6 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
-	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
 	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
@@ -278,6 +276,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Down,        zoom,           {.f = -1} },
 	{ TERMMOD,              XK_J,           zoom,           {.f = +1} },
 	{ TERMMOD,              XK_K,           zoom,           {.f = -1} },
+	{ TERMMOD,              XK_minus,       zoom,           {.f = +1} },
+	{ TERMMOD,              XK_equal,       zoom,           {.f = -1} },
 	{ TERMMOD,              XK_U,           zoom,           {.f = +2} },
 	{ TERMMOD,              XK_D,           zoom,           {.f = -2} },
 	/* { MODKEY,               XK_l,           externalpipe,   {.v = openurlcmd } }, */
