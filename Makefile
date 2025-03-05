@@ -4,6 +4,9 @@
 
 include config.mk
 
+TERMINFO := /usr/share/terminfo
+NOTERMINFO :=
+
 SRC = st.c x.c boxdraw.c hb.c
 OBJ = $(SRC:.c=.o)
 DIST_DIR := dist
@@ -55,8 +58,7 @@ install: st
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
 	sed "s/VERSION/$(VERSION)/g" < st.1 > $(DESTDIR)$(MANPREFIX)/man1/st.1
 	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/st.1
-	tic -sx st.info
-	@echo Please see the README file regarding the terminfo entry of st.
+	if [ -z "$(NOTERMINFO)" ]; then tic -o $(TERMINFO) -sx st.info && echo "Please see the README file regarding the terminfo entry of st."; fi
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/st
